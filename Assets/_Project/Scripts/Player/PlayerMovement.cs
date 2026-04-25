@@ -9,7 +9,7 @@ namespace LastLight.Player
         [SerializeField] private float moveSpeed = 5f;
 
         private Rigidbody _rb;
-        private Vector2 _inputDirection;
+        private Vector3 _inputDirection;
 
         private void Awake()
         {
@@ -28,15 +28,17 @@ namespace LastLight.Player
 
         private void GatherInput()
         {
-            _inputDirection = new Vector2(
-                Input.GetAxisRaw("Horizontal"),
-                Input.GetAxisRaw("Vertical")
-            ).normalized;
+            float x = Input.GetAxisRaw("Horizontal");
+            float z = Input.GetAxisRaw("Vertical");
+
+            _inputDirection = new Vector3(x, 0f, z).normalized;
         }
 
         private void Move()
         {
-            _rb.linearVelocity = _inputDirection * moveSpeed;
+            Vector3 targetVelocity = _inputDirection * moveSpeed;
+            targetVelocity.y = _rb.linearVelocity.y; // preserve gravity
+            _rb.linearVelocity = targetVelocity;
         }
     }
 }
