@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 263150842}
   - component: {fileID: 263150841}
   - component: {fileID: 263150840}
+  - component: {fileID: 263150846}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -624,6 +625,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2041744375}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &263150846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263150839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63eb73f2e45784140a41086d1f59e83b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LastLight.Player.PlayerGatherer
+  gatherRadius: 1
+  resourceLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  inventory: {fileID: 11400000, guid: b86a36c6c12cf3344b98b79645b2f7e9, type: 2}
 --- !u!1 &291646243
 GameObject:
   m_ObjectHideFlags: 0
