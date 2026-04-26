@@ -13,6 +13,9 @@ namespace LastLight.Player
         [SerializeField] private float gatherRadius = 2f;
         [SerializeField] private LayerMask resourceLayerMask;
 
+        [Header("Inventory")]
+        [SerializeField] private InventoryData inventory;
+
         private bool _isGathering = false;
 
         private void Update()
@@ -67,6 +70,10 @@ namespace LastLight.Player
             yield return new WaitForSeconds(node.Data.gatherTime);
 
             int amount = node.Gather();
+
+            if (inventory != null)
+                inventory.Add(node.Data.resourceType, amount);
+
             Debug.Log($"[Gathering] Gathered {amount}x {node.Data.resourceName}");
 
             _isGathering = false;
