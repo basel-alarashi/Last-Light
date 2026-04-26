@@ -5,7 +5,7 @@ namespace LastLight.Systems
     /// <summary>
     /// Represents an interactable resource node in the world.
     /// </summary>
-    public class ResourceNode : MonoBehaviour
+    public class ResourceNode : MonoBehaviour, IGatherable
     {
         [Header("Resource Settings")]
         [SerializeField] private ResourceData resourceData;
