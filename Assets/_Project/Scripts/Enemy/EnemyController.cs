@@ -1,9 +1,10 @@
 using UnityEngine;
+using LastLight.Systems;
 
 namespace LastLight.Enemy
 {
     [RequireComponent(typeof(EnemyMovement))]
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, IDamageable
     {
         [Header("Data")]
         [SerializeField] private EnemyData enemyData;
