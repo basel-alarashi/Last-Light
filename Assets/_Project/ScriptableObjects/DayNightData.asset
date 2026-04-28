@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LastLight.Systems.DayNightData
   dayDuration: 60
   nightDuration: 40
-  currentTimeNormalized: 0
-  currentTimeOfDay: 0
+  currentTimeNormalized: 0.4470552
+  currentTimeOfDay: 1
