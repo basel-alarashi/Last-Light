@@ -1,17 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using LastLight.Systems;
+using LastLight.Core;
 
 namespace LastLight.UI
 {
-    /// <summary>
-    /// Reads HungerData and updates the hunger bar fill amount.
-    /// </summary>
     public class HungerBarUI : MonoBehaviour
     {
-        [Header("Data")]
-        [SerializeField] private HungerData hungerData;
-
         [Header("UI References")]
         [SerializeField] private Image fillImage;
 
@@ -24,7 +19,6 @@ namespace LastLight.UI
         {
             if (fillImage != null)
             {
-                // Create a clean 1x1 white texture — no borders, no artifacts
                 Texture2D tex = new Texture2D(1, 1);
                 tex.SetPixel(0, 0, Color.white);
                 tex.Apply();
@@ -42,24 +36,22 @@ namespace LastLight.UI
             }
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            if (hungerData == null || fillImage == null) return;
-
-            UpdateFill();
-            UpdateColor();
+            GameEvents.OnHungerChanged += UpdateBar;
         }
 
-        private void UpdateFill()
+        private void OnDisable()
         {
-            fillImage.fillAmount = hungerData.HungerPercent;
+            GameEvents.OnHungerChanged -= UpdateBar;
         }
 
-        private void UpdateColor()
+        private void UpdateBar(float percent)
         {
-            fillImage.color = hungerData.HungerPercent <= lowThreshold
-                ? lowColor
-                : fullColor;
+            if (fillImage == null) return;
+
+            fillImage.fillAmount = percent;
+            fillImage.color = percent <= lowThreshold ? lowColor : fullColor;
         }
     }
 }

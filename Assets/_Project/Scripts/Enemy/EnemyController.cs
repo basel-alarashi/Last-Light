@@ -99,6 +99,7 @@ namespace LastLight.Enemy
         private void Die()
         {
             Debug.Log($"[Enemy] {gameObject.name} died.");
+            GameEvents.TriggerEnemyDied();
             gameObject.SetActive(false);
         }
 

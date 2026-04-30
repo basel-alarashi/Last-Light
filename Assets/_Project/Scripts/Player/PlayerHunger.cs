@@ -31,8 +31,7 @@ namespace LastLight.Player
         {
             if (hungerData.IsStarving)
             {
-                Debug.LogWarning("[Hunger] Player is starving!");
-                // TODO Phase 2: apply HP damage here
+                GameEvents.TriggerPlayerStarving();
             }
         }
 

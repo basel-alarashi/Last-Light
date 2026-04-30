@@ -52,6 +52,10 @@ namespace LastLight.Systems
                 _timer = 0f;
                 _isDay = !_isDay;
                 dayNightData.currentTimeOfDay = _isDay ? TimeOfDay.Day : TimeOfDay.Night;
+
+                if (_isDay) GameEvents.TriggerDayStarted();
+                else GameEvents.TriggerNightStarted();
+
                 Debug.Log($"[DayNight] Switched to: {dayNightData.currentTimeOfDay}");
             }
         }
