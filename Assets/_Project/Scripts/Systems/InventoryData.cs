@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LastLight.Systems;
+using LastLight.Core;
 
 namespace LastLight.Systems
 {

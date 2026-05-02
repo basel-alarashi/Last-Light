@@ -1,4 +1,5 @@
 using UnityEngine;
+using LastLight.Core;
 
 namespace LastLight.Systems
 {
