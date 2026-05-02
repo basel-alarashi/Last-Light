@@ -1,5 +1,6 @@
 using UnityEngine;
 using LastLight.Systems;
+using LastLight.Core;
 
 namespace LastLight.Enemy
 {
