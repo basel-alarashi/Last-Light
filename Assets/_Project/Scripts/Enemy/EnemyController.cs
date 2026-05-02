@@ -1,5 +1,6 @@
 using UnityEngine;
 using LastLight.Systems;
+using LastLight.Core;
 
 namespace LastLight.Enemy
 {
@@ -99,6 +100,7 @@ namespace LastLight.Enemy
         private void Die()
         {
             Debug.Log($"[Enemy] {gameObject.name} died.");
+            GameEvents.TriggerEnemyDied();
             gameObject.SetActive(false);
         }
 

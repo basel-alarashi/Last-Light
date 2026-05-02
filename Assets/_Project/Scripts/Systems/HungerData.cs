@@ -1,4 +1,5 @@
 using UnityEngine;
+using LastLight.Core;
 
 namespace LastLight.Systems
 {
@@ -20,11 +21,13 @@ namespace LastLight.Systems
         public void DecreaseHunger(float amount)
         {
             currentHunger = Mathf.Clamp(currentHunger - amount, 0f, maxHunger);
+            GameEvents.TriggerHungerChanged(HungerPercent);
         }
 
         public void IncreaseHunger(float amount)
         {
             currentHunger = Mathf.Clamp(currentHunger + amount, 0f, maxHunger);
+            GameEvents.TriggerHungerChanged(HungerPercent);
         }
 
         private void OnDisable()

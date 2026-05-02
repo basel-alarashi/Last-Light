@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 216ff7655fe61bf429a3df56bc13f173
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerData: {fileID: 11400000, guid: 30531ea97db1055479f88c37f6347e21, type: 2}
+  - hungerData: {fileID: 11400000, guid: 506811b1cd5a80d4abfa606a316623b9, type: 2}
+  - inventoryData: {fileID: 11400000, guid: b86a36c6c12cf3344b98b79645b2f7e9, type: 2}
+  - dayNightData: {fileID: 11400000, guid: feba858ecd27c074eacd07563690324d, type: 2}
+  - gameSettings: {fileID: 11400000, guid: 0dd602523a0e05342a78d65743e4f80a, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

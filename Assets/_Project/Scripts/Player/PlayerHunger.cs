@@ -1,5 +1,6 @@
 using UnityEngine;
 using LastLight.Systems;
+using LastLight.Core;
 
 namespace LastLight.Player
 {
@@ -11,8 +12,8 @@ namespace LastLight.Player
         [Header("Data")]
         [SerializeField] private HungerData hungerData;
 
-        [Header("Starvation Settings")]
-        [SerializeField] private float starvationDamageRate = 5f; // HP/sec (Phase 2)
+        // [Header("Starvation Settings")]
+        // [SerializeField] private float starvationDamageRate = 5f; // HP/sec (Phase 2)
 
         private void Update()
         {
@@ -31,8 +32,7 @@ namespace LastLight.Player
         {
             if (hungerData.IsStarving)
             {
-                Debug.LogWarning("[Hunger] Player is starving!");
-                // TODO Phase 2: apply HP damage here
+                GameEvents.TriggerPlayerStarving();
             }
         }
 

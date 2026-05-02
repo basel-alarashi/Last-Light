@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LastLight.Systems;
+using LastLight.Core;
 
 namespace LastLight.Systems
 {
@@ -16,7 +17,7 @@ namespace LastLight.Systems
             else
                 _items[type] = amount;
 
-            Debug.Log($"[Inventory] {type} x{_items[type]} (total)");
+            GameEvents.TriggerInventoryChanged(type, _items[type]);
         }
 
         public bool Remove(ResourceType type, int amount)
