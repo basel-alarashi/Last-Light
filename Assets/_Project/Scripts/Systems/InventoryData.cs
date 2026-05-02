@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using LastLight.Systems;
 using LastLight.Core;
 
 namespace LastLight.Systems
@@ -9,6 +8,8 @@ namespace LastLight.Systems
     public class InventoryData : ScriptableObject
     {
         private Dictionary<ResourceType, int> _items = new();
+
+        public IReadOnlyDictionary<ResourceType, int> Items => _items;
 
         public void Add(ResourceType type, int amount)
         {
@@ -29,6 +30,11 @@ namespace LastLight.Systems
             }
 
             _items[type] -= amount;
+
+            if (_items[type] <= 0)
+                _items.Remove(type);
+
+            GameEvents.TriggerInventoryChanged(type, GetAmount(type));
             return true;
         }
 
@@ -42,9 +48,6 @@ namespace LastLight.Systems
             _items.Clear();
         }
 
-        /// <summary>
-        /// Called on play mode exit to reset runtime state.
-        /// </summary>
         private void OnDisable()
         {
             Clear();
