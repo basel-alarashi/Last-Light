@@ -20,6 +20,10 @@ namespace LastLight.Core
         public static event Action OnPlayerDied;
         public static event Action OnEnemyDied;
 
+        // Stamina
+        public static event Action<float> OnStaminaChanged;
+        public static event Action OnStaminaDepleted;
+
         // World
         public static event Action OnDayStarted;
         public static event Action OnNightStarted;
@@ -49,5 +53,10 @@ namespace LastLight.Core
 
         public static void TriggerNightStarted()
             => OnNightStarted?.Invoke();
+        public static void TriggerStaminaChanged(float percent)
+            => OnStaminaChanged?.Invoke(percent);
+
+        public static void TriggerStaminaDepleted()
+            => OnStaminaDepleted?.Invoke();
     }
 }

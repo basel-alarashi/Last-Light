@@ -12,6 +12,8 @@ namespace LastLight.Core
         [SerializeField] private PlayerData playerData;
         [SerializeField] private HungerData hungerData;
         [SerializeField] private InventoryData inventoryData;
+        [SerializeField] private StaminaData staminaData;
+        public StaminaData StaminaData => staminaData;
 
         [Header("World Data")]
         [SerializeField] private DayNightData dayNightData;
