@@ -28,6 +28,11 @@ namespace LastLight.Core
         public static event Action OnDayStarted;
         public static event Action OnNightStarted;
 
+        // Light
+        public static event Action<float> OnLightFuelChanged;
+        public static event Action OnLightExtinguished;
+        public static event Action OnLightIgnited;
+
         // --- Invokers ---
 
         public static void TriggerHungerChanged(float percent)
@@ -58,5 +63,13 @@ namespace LastLight.Core
 
         public static void TriggerStaminaDepleted()
             => OnStaminaDepleted?.Invoke();
+        public static void TriggerLightFuelChanged(float percent)
+            => OnLightFuelChanged?.Invoke(percent);
+
+        public static void TriggerLightExtinguished()
+            => OnLightExtinguished?.Invoke();
+
+        public static void TriggerLightIgnited()
+            => OnLightIgnited?.Invoke();
     }
 }
