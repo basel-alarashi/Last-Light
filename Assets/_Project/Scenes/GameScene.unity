@@ -1654,6 +1654,7 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
+  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1794,6 +1795,23 @@ MonoBehaviour:
   target: {fileID: 263150845}
   offset: {x: 0, y: 10, z: -5}
   smoothSpeed: 8
+--- !u!114 &330585549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 59af3b4d4b2a13d449c0221bf39e65d6, type: 2}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2028,6 +2046,7 @@ Transform:
   - {fileID: 27867935}
   - {fileID: 1074087451}
   - {fileID: 26236289}
+  - {fileID: 2036434811}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &474873407
@@ -4171,6 +4190,60 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6097739962139011325, guid: 5c8a5c8a6f2f37440bd68e7a4b6d3994, type: 3}
   m_PrefabInstance: {fileID: 2032453235}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2036434810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2036434811}
+  - component: {fileID: 2036434812}
+  m_Layer: 0
+  m_Name: DarknessController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2036434811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036434810}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 453498889}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2036434812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036434810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f331264c63608468e79166b6ca0f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LastLight.Systems.DarknessController
+  globalVolume: {fileID: 330585549}
+  dayAmbientIntensity: 1
+  nightAmbientIntensity: 0.05
+  transitionDuration: 3
+  dayVignetteIntensity: 0.2
+  nightVignetteIntensity: 0.7
+  torchVignetteIntensity: 0.45
+  vignetteColor: {r: 0, g: 0, b: 0, a: 1}
+  dayExposure: 0
+  nightExposure: -2
 --- !u!1 &2041744374
 GameObject:
   m_ObjectHideFlags: 0
