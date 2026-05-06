@@ -18,18 +18,19 @@ namespace LastLight.Enemy
             _rb = GetComponent<Rigidbody>();
         }
 
-        public void MoveToward(Vector3 targetPosition)
+        public void MoveToward(Vector3 targetPosition, float speedMultiplier = 1f)
         {
             Vector3 direction = (targetPosition - transform.position).normalized;
             direction.y = 0f;
 
+            float speed = enemyData.moveSpeed * speedMultiplier;
+
             _rb.linearVelocity = new Vector3(
-                direction.x * enemyData.moveSpeed,
+                direction.x * speed,
                 _rb.linearVelocity.y,
-                direction.z * enemyData.moveSpeed
+                direction.z * speed
             );
 
-            // Face the player
             if (direction != Vector3.zero)
                 transform.rotation = Quaternion.LookRotation(direction);
         }
