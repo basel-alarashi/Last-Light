@@ -57,5 +57,13 @@ namespace LastLight.Core
             if (gameSettings == null)
                 Debug.LogError("[GameManager] GameSettings is not assigned.");
         }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                GameEvents.TriggerPlayerDamaged(10f);
+                Debug.Log("[GameManager] Simulated player damage for testing.");
+            }
+        }
     }
 }

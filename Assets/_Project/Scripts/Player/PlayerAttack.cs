@@ -1,5 +1,6 @@
 using UnityEngine;
 using LastLight.Systems;
+using System.Collections;
 
 namespace LastLight.Player
 {
@@ -17,6 +18,12 @@ namespace LastLight.Player
 
         private float _attackTimer = 0f;
         private bool _canAttack => _attackTimer <= 0f;
+        private PlayerAnimator _playerAnimator;
+
+        private void Awake()
+        {
+            _playerAnimator = GetComponent<PlayerAnimator>();
+        }
 
         private void Update()
         {
@@ -30,6 +37,7 @@ namespace LastLight.Player
         private void TryAttack()
         {
             _attackTimer = weaponData.attackCooldown;
+            _playerAnimator?.SetAttacking(true);
 
             Collider[] hits = Physics.OverlapSphere(
                 attackOrigin.position,
@@ -40,6 +48,7 @@ namespace LastLight.Player
             if (hits.Length == 0)
             {
                 Debug.Log("[Attack] Swung but hit nothing.");
+                _playerAnimator?.SetAttacking(false);
                 return;
             }
 
@@ -51,6 +60,15 @@ namespace LastLight.Player
                 damageable.TakeDamage(weaponData.damage);
                 ApplyKnockback(hit);
             }
+
+            // Reset after cooldown
+            StartCoroutine(ResetAttackAnimation());
+        }
+
+        private IEnumerator ResetAttackAnimation()
+        {
+            yield return new WaitForSeconds(weaponData.attackCooldown * 0.5f);
+            _playerAnimator?.SetAttacking(false);
         }
 
         private void ApplyKnockback(Collider hit)
