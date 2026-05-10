@@ -4,6 +4,7 @@ namespace LastLight.Enemy
     {
         Idle,
         Chase,
+        Patrol,
         Attack
     }
 }

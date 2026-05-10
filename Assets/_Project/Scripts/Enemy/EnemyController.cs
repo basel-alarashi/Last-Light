@@ -1,19 +1,29 @@
 using UnityEngine;
 using LastLight.Systems;
 using LastLight.Core;
+using LastLight.Player;
 
 namespace LastLight.Enemy
 {
+    /// <summary>
+    /// Enemy state machine: Idle, Patrol, Chase, Attack.
+    /// Reacts to day/night and player torch light.
+    /// </summary>
     [RequireComponent(typeof(EnemyMovement))]
+    [RequireComponent(typeof(EnemyPatrol))]
     public class EnemyController : MonoBehaviour, IDamageable
     {
         [Header("Data")]
         [SerializeField] private EnemyData enemyData;
 
-        // No longer serialized — found automatically at runtime
         private Transform _player;
+        private PlayerLight _playerLight;
+        private DayNightData _dayNightData;
+
         private EnemyState _currentState = EnemyState.Idle;
         private EnemyMovement _movement;
+        private EnemyPatrol _patrol;
+
         private float _attackTimer = 0f;
         private float _currentHealth;
 
@@ -22,18 +32,30 @@ namespace LastLight.Enemy
         private void Awake()
         {
             _movement = GetComponent<EnemyMovement>();
+            _patrol = GetComponent<EnemyPatrol>();
             _currentHealth = enemyData.maxHealth;
-            FindPlayer();
+
+            FindReferences();
         }
 
-        private void FindPlayer()
+        private void FindReferences()
         {
             GameObject playerObj = GameObject.FindWithTag("Player");
 
             if (playerObj != null)
+            {
                 _player = playerObj.transform;
+                _playerLight = playerObj.GetComponent<PlayerLight>();
+            }
             else
-                Debug.LogError("[EnemyController] Player not found. Make sure Player tag is set.");
+            {
+                Debug.LogError("[EnemyController] Player not found.");
+            }
+
+            if (GameManager.Instance != null)
+                _dayNightData = GameManager.Instance.DayNightData;
+            else
+                Debug.LogWarning("[EnemyController] GameManager not found.");
         }
 
         private void Update()
@@ -43,22 +65,38 @@ namespace LastLight.Enemy
             UpdateState();
             HandleState();
 
-            _attackTimer -= Time.deltaTime;
+            if (_attackTimer > 0f)
+                _attackTimer -= Time.deltaTime;
         }
 
         private void UpdateState()
         {
-            float distanceToPlayer = Vector3.Distance(
-                transform.position,
-                _player.position
-            );
+            float distance = Vector3.Distance(transform.position, _player.position);
+            float effectiveRange = GetEffectiveDetectionRange();
 
-            if (distanceToPlayer <= enemyData.attackRange)
+            if (distance <= enemyData.attackRange)
                 _currentState = EnemyState.Attack;
-            else if (distanceToPlayer <= enemyData.detectionRange)
+            else if (distance <= effectiveRange)
                 _currentState = EnemyState.Chase;
             else
-                _currentState = EnemyState.Idle;
+                _currentState = EnemyState.Patrol;
+        }
+
+        private float GetEffectiveDetectionRange()
+        {
+            float range = enemyData.detectionRange;
+            bool isNight = _dayNightData != null && _dayNightData.IsNight;
+            bool torchOn = _playerLight != null && _playerLight.IsLightOn;
+
+            // Night increases base detection range
+            if (isNight)
+                range += enemyData.nightDetectionBonus;
+
+            // Torch light attracts enemies even more
+            if (torchOn)
+                range += enemyData.torchDetectionBonus;
+
+            return range;
         }
 
         private void HandleState()
@@ -69,8 +107,15 @@ namespace LastLight.Enemy
                     _movement.Stop();
                     break;
 
+                case EnemyState.Patrol:
+                    _patrol.PatrolTick();
+                    break;
+
                 case EnemyState.Chase:
-                    _movement.MoveToward(_player.position);
+                    float speedMultiplier = ShouldApplyLightAttraction()
+                        ? enemyData.lightAttractionSpeed
+                        : 1f;
+                    _movement.MoveToward(_player.position, speedMultiplier);
                     break;
 
                 case EnemyState.Attack:
@@ -80,12 +125,20 @@ namespace LastLight.Enemy
             }
         }
 
+        private bool ShouldApplyLightAttraction()
+        {
+            bool isNight = _dayNightData != null && _dayNightData.IsNight;
+            bool torchOn = _playerLight != null && _playerLight.IsLightOn;
+            return isNight && torchOn;
+        }
+
         private void TryAttack()
         {
             if (_attackTimer > 0f) return;
 
             _attackTimer = enemyData.attackCooldown;
             Debug.Log($"[Enemy] {gameObject.name} attacks for {enemyData.damage} damage!");
+            // TODO: call player health system
         }
 
         public void TakeDamage(float amount)
@@ -109,10 +162,23 @@ namespace LastLight.Enemy
         {
             if (enemyData == null) return;
 
-            Gizmos.color = Color.red;
+            // Base detection range
+            Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, enemyData.detectionRange);
 
-            Gizmos.color = Color.yellow;
+            // Night detection range
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position,
+                enemyData.detectionRange + enemyData.nightDetectionBonus);
+
+            // Torch detection range
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position,
+                enemyData.detectionRange + enemyData.nightDetectionBonus
+                + enemyData.torchDetectionBonus);
+
+            // Attack range
+            Gizmos.color = Color.white;
             Gizmos.DrawWireSphere(transform.position, enemyData.attackRange);
         }
 #endif

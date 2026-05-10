@@ -21,12 +21,16 @@ namespace LastLight.Core
         [SerializeField] private DayNightData dayNightData;
         [SerializeField] private GameSettings gameSettings;
 
+        [Header("Systems")]
+        [SerializeField] private SaveLoadSystem saveLoadSystem;
+
         // Public accessors
         public PlayerData PlayerData => playerData;
         public HungerData HungerData => hungerData;
         public InventoryData InventoryData => inventoryData;
         public DayNightData DayNightData => dayNightData;
         public GameSettings GameSettings => gameSettings;
+        public SaveLoadSystem SaveLoadSystem => saveLoadSystem;
 
         private void Awake()
         {
@@ -52,6 +56,14 @@ namespace LastLight.Core
                 Debug.LogError("[GameManager] DayNightData is not assigned.");
             if (gameSettings == null)
                 Debug.LogError("[GameManager] GameSettings is not assigned.");
+        }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                GameEvents.TriggerPlayerDamaged(10f);
+                Debug.Log("[GameManager] Simulated player damage for testing.");
+            }
         }
     }
 }

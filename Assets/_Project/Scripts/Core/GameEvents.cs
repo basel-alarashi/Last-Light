@@ -33,6 +33,15 @@ namespace LastLight.Core
         public static event Action OnLightExtinguished;
         public static event Action OnLightIgnited;
 
+        // Crafting
+        public static event Action<CraftableItemType> OnItemCrafted;
+        public static event Action OnCraftingFailed;
+        public static event Action<bool> OnCraftingMenuToggled;
+
+        // Save / Load
+        public static event Action OnGameSaved;
+        public static event Action OnGameLoaded;
+
         // --- Invokers ---
 
         public static void TriggerHungerChanged(float percent)
@@ -71,5 +80,20 @@ namespace LastLight.Core
 
         public static void TriggerLightIgnited()
             => OnLightIgnited?.Invoke();
+
+        public static void TriggerItemCrafted(CraftableItemType item)
+            => OnItemCrafted?.Invoke(item);
+
+        public static void TriggerCraftingFailed()
+            => OnCraftingFailed?.Invoke();
+
+        public static void TriggerCraftingMenuToggled(bool isOpen)
+            => OnCraftingMenuToggled?.Invoke(isOpen);
+
+        public static void TriggerGameSaved()
+            => OnGameSaved?.Invoke();
+
+        public static void TriggerGameLoaded()
+            => OnGameLoaded?.Invoke();
     }
 }

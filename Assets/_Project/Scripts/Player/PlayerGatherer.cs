@@ -17,6 +17,12 @@ namespace LastLight.Player
         [SerializeField] private InventoryData inventory;
 
         private bool _isGathering = false;
+        private PlayerAnimator _playerAnimator;
+
+        private void Awake()
+        {
+            _playerAnimator = GetComponent<PlayerAnimator>();
+        }
 
         private void Update()
         {
@@ -65,17 +71,18 @@ namespace LastLight.Player
         private IEnumerator GatherRoutine(IGatherable node)
         {
             _isGathering = true;
+            _playerAnimator?.SetGathering(true);
 
             Debug.Log($"[Gathering] Gathering {node.Data.resourceName}...");
             yield return new WaitForSeconds(node.Data.gatherTime);
 
             int amount = node.Gather();
 
-            if (inventory != null)
-                inventory.Add(node.Data.resourceType, amount);
+            inventory?.Add(node.Data.resourceType, amount);
 
             Debug.Log($"[Gathering] Gathered {amount}x {node.Data.resourceName}");
 
+            _playerAnimator?.SetGathering(false);
             _isGathering = false;
         }
 
