@@ -38,6 +38,10 @@ namespace LastLight.Core
         public static event Action OnCraftingFailed;
         public static event Action<bool> OnCraftingMenuToggled;
 
+        // Save / Load
+        public static event Action OnGameSaved;
+        public static event Action OnGameLoaded;
+
         // --- Invokers ---
 
         public static void TriggerHungerChanged(float percent)
@@ -85,5 +89,11 @@ namespace LastLight.Core
 
         public static void TriggerCraftingMenuToggled(bool isOpen)
             => OnCraftingMenuToggled?.Invoke(isOpen);
+
+        public static void TriggerGameSaved()
+            => OnGameSaved?.Invoke();
+
+        public static void TriggerGameLoaded()
+            => OnGameLoaded?.Invoke();
     }
 }
