@@ -56,7 +56,7 @@ This project is built as a **portfolio piece** to demonstrate:
 
 ## 📸 Screenshots / Gameplay
 
-*(Add screenshots and gameplay video here)*
+*(I will add screenshots or gameplay video here)*
 
 ------------------------------------------------------------------------
 
@@ -72,7 +72,7 @@ This project is built as a **portfolio piece** to demonstrate:
 ## 🧪 Development Roadmap
 
 -   [x] Vertical Slice\
--   [ ] Core Systems\
+-   [x] Core Systems\
 -   [ ] Content Expansion\
 -   [ ] Juice & Polish\
 -   [ ] Final Release
@@ -80,10 +80,10 @@ This project is built as a **portfolio piece** to demonstrate:
 ------------------------------------------------------------------------
 
 ## 📚 Lessons Learned
-
+I will add:
 -   What went well\
 -   Challenges faced\
--   How you solved them
+-   How I solved them
 
 ------------------------------------------------------------------------
 
