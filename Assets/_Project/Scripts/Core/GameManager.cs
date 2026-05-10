@@ -21,12 +21,16 @@ namespace LastLight.Core
         [SerializeField] private DayNightData dayNightData;
         [SerializeField] private GameSettings gameSettings;
 
+        [Header("Systems")]
+        [SerializeField] private SaveLoadSystem saveLoadSystem;
+
         // Public accessors
         public PlayerData PlayerData => playerData;
         public HungerData HungerData => hungerData;
         public InventoryData InventoryData => inventoryData;
         public DayNightData DayNightData => dayNightData;
         public GameSettings GameSettings => gameSettings;
+        public SaveLoadSystem SaveLoadSystem => saveLoadSystem;
 
         private void Awake()
         {
